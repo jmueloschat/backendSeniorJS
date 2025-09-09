@@ -1,16 +1,12 @@
 import soap from 'soap';
 import dotenv from 'dotenv';
 dotenv.config();
-import notaEntradaService from './NotaEntradaServiceDB.js';
-import InterfacesURL from '../services/InterfacesURL.js';
+import NotaEntradaServiceDB from './NotaEntradaServiceDB.js';
+import InterfacesURL from './InterfacesURL.js';
 import NotafiscalGravarNotasFiscaisEntrada12InModel from '../models/NotafiscalGravarNotasFiscaisEntrada12InModel.js';
 import NotafiscalGravarNotasFiscaisEntrada12InDadosGeraisModel from '../models/NotafiscalGravarNotasFiscaisEntrada12InDadosGeraisModel.js';
 import NotafiscalGravarNotasFiscaisEntrada12InDadosGeraisProdutosModel from '../models/NotafiscalGravarNotasFiscaisEntrada12InDadosGeraisProdutosModel.js'; 
 import NotafiscalGravarNotasFiscaisEntrada12InDadosGeraisProdutosRateioModel from '../models/NotafiscalGravarNotasFiscaisEntrada12InDadosGeraisProdutosRateioModel.js';
-
-
-
-//const WSDL_URL = 'http://192.168.1.5:8080/g5-senior-services/sapiens_Synccom_senior_g5_co_mcm_cpr_notafiscal?wsdl';
 
 async function carregaNotasFiscaisEntrada12(codemp, codfil, codsnf, numnfc, codfor){
   const notafiscalGravarNotasFiscaisEntrada12InModel = 
@@ -23,11 +19,11 @@ async function carregaNotasFiscaisEntrada12(codemp, codfil, codsnf, numnfc, codf
         }
   );
   
-  const notafiscalGravarNotasFiscaisEntrada12InDadosGeraisModel = new NotafiscalGravarNotasFiscaisEntrada12InDadosGeraisModel(await notaEntradaService.criaDadosGerais(codemp, codfil, codsnf, numnfc, codfor));   
-  let produtos = await notaEntradaService.criaProdutos(codemp, codfil, codsnf, numnfc, codfor);
+  const notafiscalGravarNotasFiscaisEntrada12InDadosGeraisModel = new NotafiscalGravarNotasFiscaisEntrada12InDadosGeraisModel(await NotaEntradaServiceDB.criaDadosGerais(codemp, codfil, codsnf, numnfc, codfor));   
+  let produtos = await NotaEntradaServiceDB.criaProdutos(codemp, codfil, codsnf, numnfc, codfor);
   produtos = produtos.map(produtoItem => {
     const produto = new NotafiscalGravarNotasFiscaisEntrada12InDadosGeraisProdutosModel(produtoItem);    
-    const e440rat = null; //notaEntradaService.criaRateios(codemp, codfil, codsnf, numnfc, codfor, produtoItem.seqipc); //await?
+    const e440rat = NotaEntradaServiceDB.criaRateios(codemp, codfil, codsnf, numnfc, codfor, produtoItem.SEQIPC); //await?
     if(e440rat && e440rat.length > 0){
       const rateio = e440rat.map(rateioItem => new NotafiscalGravarNotasFiscaisEntrada12InDadosGeraisProdutosRateioModel(rateioItem));
       if(rateio && rateio.length > 0){

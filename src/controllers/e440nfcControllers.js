@@ -1,5 +1,4 @@
-import NotaEntrada12Service from "../services/NotaEntradaServiceDB.js";
-
+import NotaEntrada12Service from '../services/NotaEntrada12Services.js';
 // GET 
 async function getId(req, res){
   try {
@@ -18,7 +17,7 @@ async function getId(req, res){
     res.status(200).send({result});
 
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({ erro: error.message });
   }
 };
 

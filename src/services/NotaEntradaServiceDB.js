@@ -13,7 +13,7 @@ async function criaProdutos(codemp, codfil, codsnf, numnfc, codfor){
 }
 
 async function criaRateios(codemp, codfil, codsnf, numnfc, codfor,seqipc){
-  const e440rat = e440nfcService.getAllRateio(codemp, codfil, codsnf, numnfc, codfor, produtoItem.seqipc);
+  const e440rat = e440nfcService.getAllRateio(codemp, codfil, codsnf, numnfc, codfor, seqipc);
   return e440rat;      
 } 
 
