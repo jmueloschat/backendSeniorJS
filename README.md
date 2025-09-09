@@ -1,4 +1,3 @@
-# appSOAP5
 Arquitetura de integração com ERP
 
 Criar estrutura de pastas
