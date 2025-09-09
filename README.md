@@ -11,7 +11,7 @@ criar package.json
 npm init -y
 
 instalar
-npm instal nodejs
+npm install nodejs
 
 criar fontes na raiz do src:
 server.js
